@@ -26,7 +26,7 @@ class UserRepo(context: Context) {
         mDb?.userDao()?.checkEmailUser(email)
     }
 
-    suspend fun getUserId(email: String) = withContext(Dispatchers.IO) {
-        mDb?.userDao()?.getUserId(email)
+    suspend fun getUsername(email: String?) = withContext(Dispatchers.IO) {
+        mDb?.userDao()?.getUsername(email)
     }
 }

@@ -92,8 +92,8 @@ class LoginFragment : Fragment() {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
 
-        viewModel.userId.observe(viewLifecycleOwner) {
-            sharedPref.setUserId(id)
+        viewModel.email.observe(viewLifecycleOwner) {
+            sharedPref.setData(it)
         }
 
     }

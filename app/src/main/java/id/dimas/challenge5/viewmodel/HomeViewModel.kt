@@ -4,20 +4,27 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import id.dimas.challenge5.adapter.MovieAdapter
+import id.dimas.challenge5.helper.UserRepo
 import id.dimas.challenge5.model.MovieResponse
 import id.dimas.challenge5.service.TMDBApiService
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel(private val apiService: TMDBApiService) : ViewModel() {
+class HomeViewModel(private val apiService: TMDBApiService, private val userRepo: UserRepo) :
+    ViewModel() {
 
     private val _dataError = MutableLiveData<String>()
     val dataError: LiveData<String> get() = _dataError
 
     private val _movie = MutableLiveData<MovieResponse>()
     val movie: LiveData<MovieResponse> get() = _movie
+
+    private val _username = MutableLiveData<String>()
+    val username: LiveData<String> get() = _username
 
     private lateinit var movieAdapter: MovieAdapter
 
@@ -48,5 +55,12 @@ class HomeViewModel(private val apiService: TMDBApiService) : ViewModel() {
                 }
 
             })
+    }
+
+    fun getUsername(email: String?) {
+        viewModelScope.launch {
+            val result = userRepo.getUsername(email)
+            _username.value = "Welcome, $result!"
+        }
     }
 }

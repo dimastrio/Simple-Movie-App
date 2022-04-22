@@ -36,9 +36,10 @@ class SharedPref(context: Context) {
         return sharedPref.getInt(KEY_ID, 0)
     }
 
-    fun setEmail(email: String) {
+    fun setData(email: String) {
         editor.apply {
             putString(KEY_EMAIL, email)
+            putBoolean(IS_LOGIN, true)
             apply()
         }
     }
@@ -51,8 +52,8 @@ class SharedPref(context: Context) {
         return sharedPref.getBoolean(IS_LOGIN, false)
     }
 
-    fun getUsername(key: String, value: String): String? {
-        return sharedPref.getString(key, value)
+    fun getUsername(userId: Int): Int {
+        return sharedPref.getInt(KEY_ID, userId)
     }
 
     fun clearPref() {

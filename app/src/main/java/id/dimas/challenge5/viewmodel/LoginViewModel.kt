@@ -9,8 +9,12 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(private val userRepo: UserRepo) : ViewModel() {
 
-    private var _userId = MutableLiveData<Int?>()
-    val userId: LiveData<Int?> get() = _userId
+    private var _email = MutableLiveData<String>()
+    val email: LiveData<String> get() = _email
+
+    private var _userId = MutableLiveData<Int>()
+    val userId: LiveData<Int> get() = _userId
+
 
     private var _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
@@ -23,8 +27,7 @@ class LoginViewModel(private val userRepo: UserRepo) : ViewModel() {
         viewModelScope.launch {
             val result = userRepo.checkRegisterUser(email, password)
             if (!result.isNullOrEmpty()) {
-                val userId = userRepo.getUserId(email)
-                _userId.value = userId
+                _email.value = email
                 _succesMessage.value = "Login Berhasil"
             } else {
                 _errorMessage.value = "Username Atau Password Kamu Salah"
