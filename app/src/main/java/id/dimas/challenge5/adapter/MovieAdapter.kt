@@ -9,7 +9,8 @@ import com.bumptech.glide.Glide
 import id.dimas.challenge5.databinding.ItemMovieBinding
 import id.dimas.challenge5.model.MovieItem
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(private val listener: (movie_id: Int) -> Unit) :
+    RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val diffCallback = object : DiffUtil.ItemCallback<MovieItem>() {
         override fun areItemsTheSame(oldItem: MovieItem, newItem: MovieItem): Boolean {
@@ -46,6 +47,9 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                     .into(ivMovie)
                 tvReleaseDate.text = item.releaseDate
 
+                lyMovie.setOnClickListener {
+                    listener.invoke(item.id)
+                }
             }
         }
     }

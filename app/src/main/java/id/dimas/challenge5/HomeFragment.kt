@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import id.dimas.challenge5.adapter.MovieAdapter
 import id.dimas.challenge5.databinding.FragmentHomeBinding
@@ -55,10 +57,13 @@ class HomeFragment : Fragment() {
         viewModel.getAllMovies()
         observeData()
         getUsername()
+        moveProfile()
     }
 
     private fun initRecyclerView() {
-        movieAdapter = MovieAdapter()
+        movieAdapter = MovieAdapter {
+            viewModel.action(it)
+        }
         binding.rvMovie.apply {
             adapter = movieAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
@@ -68,6 +73,15 @@ class HomeFragment : Fragment() {
     private fun getUsername() {
         val emails = sharedPref.getEmail(KEY_EMAIL)
         viewModel.getUsername(emails)
+    }
+
+    private fun moveProfile() {
+        binding.apply {
+            ivProfile.setOnClickListener {
+                it.findNavController()
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+            }
+        }
     }
 
     private fun observeData() {
@@ -81,6 +95,10 @@ class HomeFragment : Fragment() {
 
         viewModel.username.observe(viewLifecycleOwner) {
             binding.tvUsername.text = it
+        }
+
+        viewModel.movieBundle.observe(viewLifecycleOwner) {
+            findNavController().navigate(R.id.action_homeFragment_to_detailFragment, it)
         }
     }
 }

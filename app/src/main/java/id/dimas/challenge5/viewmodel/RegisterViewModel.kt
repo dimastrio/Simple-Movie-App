@@ -17,8 +17,15 @@ class RegisterViewModel(private val userRepo: UserRepo) : ViewModel() {
     val errorMessage: LiveData<String> get() = _errorMessage
 
 
-    fun saveUserToDb(username: String, email: String, password: String) {
-        val user = User(null, username, email, password)
+    fun saveUserToDb(
+        username: String,
+        email: String,
+        password: String,
+        fullName: String,
+        dateBirth: String,
+        address: String
+    ) {
+        val user = User(null, username, email, password, fullName, dateBirth, address)
         viewModelScope.launch {
             val emails = userRepo.checkEmailUser(email)
             if (emails == null) {

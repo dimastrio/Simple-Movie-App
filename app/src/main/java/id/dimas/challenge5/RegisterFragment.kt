@@ -58,7 +58,7 @@ class RegisterFragment : Fragment() {
                     etConfPass.error = "Konfirmasi Password harus diisi"
                 } else {
                     if (password == confPass) {
-                        viewModel.saveUserToDb(username, email, password)
+                        viewModel.saveUserToDb(username, email, password, "", "", "")
                     } else {
                         etConfPass.error = "Konfirmasi Password Anda Tidak Sesuai"
                     }

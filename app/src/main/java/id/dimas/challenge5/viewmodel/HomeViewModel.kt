@@ -1,5 +1,6 @@
 package id.dimas.challenge5.viewmodel
 
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,6 +26,9 @@ class HomeViewModel(private val apiService: TMDBApiService, private val userRepo
 
     private val _username = MutableLiveData<String>()
     val username: LiveData<String> get() = _username
+
+    private val _movieBundle = MutableLiveData<Bundle>()
+    val movieBundle: LiveData<Bundle> get() = _movieBundle
 
     private lateinit var movieAdapter: MovieAdapter
 
@@ -63,4 +67,16 @@ class HomeViewModel(private val apiService: TMDBApiService, private val userRepo
             _username.value = "Welcome, $result!"
         }
     }
+
+    fun action(movie_id: Int) {
+        val mBundle = Bundle()
+        mBundle.putInt(KEY_MOVIE_ID, movie_id)
+        _movieBundle.value = mBundle
+
+    }
+
+    companion object {
+        const val KEY_MOVIE_ID = "movie_id"
+    }
+
 }
