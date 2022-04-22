@@ -24,6 +24,14 @@ class SharedPref(context: Context) {
         }
     }
 
+    fun setUserId(userid: Int) {
+        editor.apply {
+            putInt(KEY_ID, userid)
+            putBoolean(IS_LOGIN, true)
+            apply()
+        }
+    }
+
     fun getUserId(): Int {
         return sharedPref.getInt(KEY_ID, 0)
     }

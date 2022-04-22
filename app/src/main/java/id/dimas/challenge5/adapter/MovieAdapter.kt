@@ -46,7 +46,6 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                     .into(ivMovie)
                 tvReleaseDate.text = item.releaseDate
 
-
             }
         }
     }
