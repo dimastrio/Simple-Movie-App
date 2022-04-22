@@ -37,8 +37,8 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addUser()
         observeData()
+        addUser()
     }
 
     private fun addUser() {
@@ -59,23 +59,22 @@ class RegisterFragment : Fragment() {
                 } else {
                     if (password == confPass) {
                         viewModel.saveUserToDb(username, email, password)
-                        findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
                     } else {
                         etConfPass.error = "Konfirmasi Password Anda Tidak Sesuai"
                     }
                 }
-
             }
         }
     }
 
     private fun observeData() {
         viewModel.errorMessage.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
 
         viewModel.successMessage.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
         }
     }
 
