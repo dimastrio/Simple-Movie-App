@@ -4,14 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/drawable/edit_text.xml" value="0.208" />
+        <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/drawable/ic_arrow_back.xml" value="0.1355" />
         <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/drawable/ic_logo_finash.xml" value="0.208" />
+        <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/drawable/ic_profile.xml" value="0.1355" />
         <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/layout/activity_main.xml" value="0.1933876811594203" />
-        <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/layout/fragment_detail.xml" value="0.2" />
+        <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/layout/fragment_detail.xml" value="0.22" />
         <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/layout/fragment_home.xml" value="0.21" />
         <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/layout/fragment_profile.xml" value="0.2" />
         <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/layout/fragment_register.xml" value="0.18" />
-        <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/layout/item_movie.xml" value="0.25" />
+        <entry key="..\:/Users/Hexatra/AndroidStudioProjects/Challenge5/app/src/main/res/layout/item_movie.xml" value="0.33" />
       </map>
     </option>
   </component>

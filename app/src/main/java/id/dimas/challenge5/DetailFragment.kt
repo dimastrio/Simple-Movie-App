@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import id.dimas.challenge5.databinding.FragmentDetailBinding
+import id.dimas.challenge5.helper.toDate
 import id.dimas.challenge5.helper.viewModelsFactory
 import id.dimas.challenge5.service.TMDBApiService
 import id.dimas.challenge5.service.TMDBClient
@@ -44,6 +46,7 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getMovieId()
         observeData()
+        moveToHome()
     }
 
     private fun getMovieId() {
@@ -51,13 +54,25 @@ class DetailFragment : Fragment() {
         viewModel.getDetailMovie(movieId ?: 0)
     }
 
+    private fun moveToHome() {
+        val btnBack = binding.ivBack
+        btnBack.setOnClickListener {
+            it.findNavController()
+                .navigate(DetailFragmentDirections.actionDetailFragmentToHomeFragment())
+        }
+    }
+
     private fun observeData() {
         viewModel.movie.observe(viewLifecycleOwner) {
             binding.apply {
-                tvTitleMovie.text = it.title
+                Glide.with(requireContext())
+                    .load("https://image.tmdb.org/t/p/w500${it.backdropPath}")
+                    .into(ivBackdrop)
                 Glide.with(requireContext())
                     .load("https://image.tmdb.org/t/p/w500${it.posterPath}")
                     .into(ivMovie)
+                tvTitleMovie.text = it.title
+                tvReleaseDate.text = it.releaseDate.toDate()
                 tvOverview.text = it.overview
             }
         }

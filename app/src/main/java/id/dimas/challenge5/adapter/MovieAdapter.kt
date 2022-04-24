@@ -45,7 +45,7 @@ class MovieAdapter(private val listener: (movie_id: Int) -> Unit) :
                 Glide.with(itemView.context)
                     .load("https://image.tmdb.org/t/p/w500${item.posterPath}")
                     .into(ivMovie)
-                tvReleaseDate.text = item.releaseDate
+//                tvReleaseDate.text = item.releaseDate.toDate()
 
                 lyMovie.setOnClickListener {
                     listener.invoke(item.id)
