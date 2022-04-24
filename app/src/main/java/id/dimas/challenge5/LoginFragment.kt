@@ -22,7 +22,12 @@ class LoginFragment : Fragment() {
 
     private val userRepo: UserRepo by lazy { UserRepo(requireContext()) }
 
-    private val viewModel: LoginViewModel by viewModelsFactory { LoginViewModel(userRepo) }
+    private val viewModel: LoginViewModel by viewModelsFactory {
+        LoginViewModel(
+            userRepo,
+            sharedPref
+        )
+    }
 
     private val sharedPref: SharedPref by lazy { SharedPref(requireContext()) }
 
@@ -92,8 +97,17 @@ class LoginFragment : Fragment() {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
 
-        viewModel.email.observe(viewLifecycleOwner) {
-            sharedPref.setData(it)
+        viewModel.user.observe(viewLifecycleOwner) {
+            if (it != null) {
+                it.userId?.let { it1 ->
+                    sharedPref.setData(
+                        it1,
+                        it.username,
+                        it.email,
+                        it.password
+                    )
+                }
+            }
         }
 
     }

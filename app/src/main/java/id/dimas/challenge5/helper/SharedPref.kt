@@ -15,14 +15,14 @@ class SharedPref(context: Context) {
         }
     }
 
-    fun setData(email: String, id: Int) {
-        editor.apply {
-            putString(KEY_EMAIL, email)
-            putInt(KEY_ID, id)
-            putBoolean(IS_LOGIN, true)
-            apply()
-        }
-    }
+//    fun setData(email: String, id: Int) {
+//        editor.apply {
+//            putString(KEY_EMAIL, email)
+//            putInt(KEY_ID, id)
+//            putBoolean(IS_LOGIN, true)
+//            apply()
+//        }
+//    }
 
     fun setUserId(userid: Int) {
         editor.apply {
@@ -36,24 +36,32 @@ class SharedPref(context: Context) {
         return sharedPref.getInt(KEY_ID, 0)
     }
 
-    fun setData(email: String) {
+    fun setData(userid: Int, username: String, email: String, password: String) {
         editor.apply {
+            putInt(KEY_ID, userid)
             putString(KEY_EMAIL, email)
+            putString(KEY_USERNAME, username)
+            putString(KEY_PASS, password)
             putBoolean(IS_LOGIN, true)
             apply()
         }
     }
 
-    fun getEmail(email: String): String? {
-        return sharedPref.getString(KEY_EMAIL, email)
+    fun getEmail(email: String): String {
+        return sharedPref.getString(KEY_EMAIL, email).toString()
     }
+
+    fun getPassword(password: String): String {
+        return sharedPref.getString(KEY_PASS, password).toString()
+    }
+
 
     fun isLogin(): Boolean {
         return sharedPref.getBoolean(IS_LOGIN, false)
     }
 
-    fun getUsername(userId: Int): Int {
-        return sharedPref.getInt(KEY_ID, userId)
+    fun getUsername(username: String): String? {
+        return sharedPref.getString(KEY_USERNAME, username)
     }
 
     fun clearPref() {

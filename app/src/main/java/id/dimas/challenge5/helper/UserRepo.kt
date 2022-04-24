@@ -14,8 +14,8 @@ class UserRepo(context: Context) {
         mDb?.userDao()?.updateUser(user)
     }
 
-    suspend fun checkRegisterUser(email: String, password: String) = withContext(Dispatchers.IO) {
-        mDb?.userDao()?.checkRegisterUser(email, password)
+    suspend fun checkRegisterUser(email: String) = withContext(Dispatchers.IO) {
+        mDb?.userDao()?.checkRegisterUser(email)
     }
 
     suspend fun insertUser(user: User) = withContext(Dispatchers.IO) {
@@ -26,7 +26,19 @@ class UserRepo(context: Context) {
         mDb?.userDao()?.checkEmailUser(email)
     }
 
-    suspend fun getUsername(email: String?) = withContext(Dispatchers.IO) {
+    suspend fun getUsername(email: String) = withContext(Dispatchers.IO) {
         mDb?.userDao()?.getUsername(email)
+    }
+
+    suspend fun getUser(email: String) = withContext(Dispatchers.IO) {
+        mDb?.userDao()?.getUser(email)
+    }
+
+    suspend fun getDataUser(email: String) = withContext(Dispatchers.IO) {
+        mDb?.userDao()?.getUserData(email)
+    }
+
+    suspend fun getUserId(email: String) = withContext(Dispatchers.IO) {
+        mDb?.userDao()?.getUserId(email)
     }
 }

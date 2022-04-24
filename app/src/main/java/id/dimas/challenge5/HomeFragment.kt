@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import id.dimas.challenge5.adapter.MovieAdapter
 import id.dimas.challenge5.databinding.FragmentHomeBinding
 import id.dimas.challenge5.helper.SharedPref
-import id.dimas.challenge5.helper.SharedPref.Companion.KEY_EMAIL
 import id.dimas.challenge5.helper.UserRepo
 import id.dimas.challenge5.helper.viewModelsFactory
 import id.dimas.challenge5.service.TMDBApiService
@@ -29,7 +28,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModelsFactory {
         HomeViewModel(
             apiService,
-            userRepo
+            sharedPref
         )
     }
 
@@ -55,8 +54,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         viewModel.getAllMovies()
+        viewModel.getUsername()
         observeData()
-        getUsername()
         moveProfile()
     }
 
@@ -70,10 +69,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getUsername() {
-        val emails = sharedPref.getEmail(KEY_EMAIL)
-        viewModel.getUsername(emails)
-    }
 
     private fun moveProfile() {
         binding.apply {
@@ -93,12 +88,12 @@ class HomeFragment : Fragment() {
             movieAdapter.updateData(it.movieItems)
         }
 
-        viewModel.username.observe(viewLifecycleOwner) {
-            binding.tvUsername.text = it
-        }
-
         viewModel.movieBundle.observe(viewLifecycleOwner) {
             findNavController().navigate(R.id.action_homeFragment_to_detailFragment, it)
+        }
+
+        viewModel.user.observe(viewLifecycleOwner) {
+            binding.tvUsername.text = it
         }
     }
 }

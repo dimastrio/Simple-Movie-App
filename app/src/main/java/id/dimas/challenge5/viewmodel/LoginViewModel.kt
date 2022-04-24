@@ -4,16 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import id.dimas.challenge5.database.User
+import id.dimas.challenge5.helper.SharedPref
 import id.dimas.challenge5.helper.UserRepo
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val userRepo: UserRepo) : ViewModel() {
+class LoginViewModel(private val userRepo: UserRepo, private val sharePref: SharedPref) :
+    ViewModel() {
 
     private var _email = MutableLiveData<String>()
     val email: LiveData<String> get() = _email
 
-    private var _userId = MutableLiveData<Int>()
-    val userId: LiveData<Int> get() = _userId
+    private var _user = MutableLiveData<User?>()
+    val user: LiveData<User?> get() = _user
 
 
     private var _errorMessage = MutableLiveData<String>()
@@ -25,12 +28,24 @@ class LoginViewModel(private val userRepo: UserRepo) : ViewModel() {
 
     fun checkUserFromDb(email: String, password: String) {
         viewModelScope.launch {
-            val result = userRepo.checkRegisterUser(email, password)
-            if (!result.isNullOrEmpty()) {
-                _email.value = email
-                _succesMessage.value = "Login Berhasil"
+            val result = userRepo.checkRegisterUser(email)
+            if (result != null) {
+                if (result.email == email && result.password == password) {
+                    _user.value = result
+                    _succesMessage.value = "Login Berhasil"
+                } else {
+                    _errorMessage.value = "Username Atau Password Kamu Salah"
+                }
+//                    it.userId?.let { it1 ->
+//                        sharePref.setData(
+//                            it1,
+//                            it.username,
+//                            it.email,
+//                            it.password
+//                        )
+//                    }
             } else {
-                _errorMessage.value = "Username Atau Password Kamu Salah"
+                _errorMessage.value = "Akun Belum Terdaftar"
             }
         }
     }
